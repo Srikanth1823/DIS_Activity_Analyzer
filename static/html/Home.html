@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <script src="../js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            width: calc(100% - 80px); /* Subtract the width of the left-slider to fit within the screen size */
+            height: 100vh; /* Set height to 100vh to occupy the full height of the viewport */
+            display: inline-block;
+            margin: 10px;
+            margin-left: 100px;
+            align-content: center;
+        }
+
+
+        #dashboardHeading {
+            font-size: 32px; /* Set the font size */
+            color: #333; /* Set the text color */
+            text-align: center; /* Set the text alignment */
+            margin-top: 20px; /* Add top margin for spacing */
+            /* Add any additional styles as needed */
+        }
+        
+        .left-slider {
+            width: 80px;
+            height: 100%;
+            background-color: #f2f2f2;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            padding-top: 20px;
+            text-align: center;
+        }
+
+        .left-slider a {
+            display: block;
+            padding: 10px;
+            margin-bottom: 10px;
+            color: #000;
+            cursor: pointer;
+        }
+
+        .left-slider a:hover {
+            background-color: #ddd;
+        }
+
+        .selected {
+            background-color: #7fd8a4;
+        }
+
+        .user-icon {
+            position: fixed;
+            top: 0;
+            right: 40px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        .logout-menu {
+            display: none;
+            position: fixed;
+            top: 65px;
+            right: 50px;
+            background-color: #6d8a98;
+            padding: 10px;
+            border: 5px solid #ffffff;
+            border-radius: 4px;
+        }
+
+        .logout-menu a {
+            display: block;
+            padding: 5px;
+            color: #000;
+            cursor: pointer;
+        }
+
+        .logout-menu a:hover {
+            background-color: #ddd;
+        }
+
+        .top-right-corner {
+            position: absolute;
+            top: 20px;
+            right: 292px;
+            background-color: #f2f2f2;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        #activity {
+            padding: 8px;
+            font-size: 16px;
+            border: none;
+            background-color: #f2f2f2;
+            color: #333;
+            cursor: pointer;
+            outline: none;
+        }
+
+        /* Optional: Add styles to customize the appearance of the dropdown arrow */
+        #activity::after {
+            content: '\25BC';
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            font-size: 14px;
+            color: #777;
+        }
+
+        #success-banner {
+            display: none;
+            background-color: green;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="success-banner"></div>
+    <div style="margin-left: 80px;">
+        <h1 id="dashboardHeading">Dashboard</h1>
+    </div>
+    <div class="chart-container">
+        <canvas id="myChart"></canvas>
+      </div>
+      
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <div class="left-slider">
+        <a id="addnew" onclick="openTimeSpentForm()"><img src="../img/addnew.png" width="50" height="50">Add</a><br>
+        <a id="dashboard" href="#dashboard" onclick="showChart_one('Dashboard', this)"><img src="../img/dashboard.png" width="50" height="50">Dashboard</a><br>
+        <a id="studyChart" href="#studyChart" onclick="showChart_one('Study Chart', this)"><img src="../img/study.png" width="50" height="50">Study</a>
+        <a id="sleepChart" href="#sleepChart" onclick="showChart_one('Sleep Chart', this)"><img src="../img/sleep.png" width="50" height="50">Sleep</a>
+        <a id="workoutChart" href="#workoutChart" onclick="showChart_one('Workout Chart', this)"><img src="../img/workout.png" width="50" height="50">Workout</a>
+        <a id="socialChart" href="#socialChart" onclick="showChart_one('Social Chart', this)"><img src="../img/social.png" width="50" height="50">Social</a>
+    </div>
+
+    <div class="top-right-corner">
+        Select View
+        <select id="activity" onchange="handleViewChange(this.value)">
+          <option value="bar">Bar Chart</option>
+          <option value="pie">Pie Chart</option>
+          <option value="line">Line Chart</option> <!-- Corrected value to 'line' -->
+          <option value="radar">Radar Chart</option> <!-- Corrected value to 'line' -->
+          <option value="polarArea">polarArea</option> <!-- Corrected value to 'line' -->
+        </select>
+      </div>
+
+
+    <div class="user-icon" onclick="toggleLogoutMenu()">
+        <img src="../img/user.png" width="50" height="50">
+    </div>
+
+    <div class="logout-menu" id="logoutMenu">
+        <a onclick="logout()"><img src="../img/logout.png" width="20" height="20"> Logout</a>
+    </div>
+
+    <script>
+        showChart_one('Dashboard');
+    </script>
+</body>
+
+</html>
